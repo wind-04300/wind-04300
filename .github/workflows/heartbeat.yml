@@ -46,23 +46,8 @@ jobs:
           token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
       - name: Write today's activity log
-        run: |
-          set -e
-          # 用北京时间取日期：GitHub 的 runner 是 UTC，凌晨跑会差一天
-          DAY=$(TZ=Asia/Shanghai date +%F)
-          mkdir -p activity
-          if [ -f "activity/${DAY}.md" ]; then
-            echo "activity/${DAY}.md 已存在，追加一条心跳标记"
-            printf '\n- heartbeat %s\n' "$(TZ=Asia/Shanghai date +%H:%M)" >> "activity/${DAY}.md"
-          else
-            {
-              printf '# %s\n\n' "$DAY"
-              printf 'Daily heartbeat — keeps the contribution graph alive.\n\n'
-              printf '- heartbeat %s\n' "$(TZ=Asia/Shanghai date +%H:%M)"
-            } > "activity/${DAY}.md"
-          fi
-          echo "── activity/ ──"
-          ls -1 activity | tail -5
+        # 用 Python 而不是 shell：避免 locale、引号、中文编码等平台差异导致的失败
+        run: python3 .github/scripts/heartbeat.py
 
       - name: Commit & push
         run: |
