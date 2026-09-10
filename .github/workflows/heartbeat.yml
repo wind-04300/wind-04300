@@ -20,6 +20,13 @@ on:
     - cron: "30 22 * * *"
   # 允许在 Actions 页面手动触发
   workflow_dispatch:
+  # 工作流本身有改动时先验证一次
+  # （心跳提交只改 activity/，不匹配下面的 paths，所以不会自我循环触发）
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/heartbeat.yml"
 
 permissions:
   contents: write
