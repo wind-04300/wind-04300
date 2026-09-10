@@ -18,8 +18,10 @@
      ══════════════════════════════════════════════════════════════════════════ -->
 
 <!-- ╔══════════════════════ ① HERO BANNER ══════════════════════╗ -->
+<!-- banner.svg = 原 banner.jpg + 155 条霓虹电子雨(青/粉/紫/绿/蓝) + 3 条横向光带 + 顶部光幕脉动
+     全部是 SVG SMIL 动画，GitHub 的 <img> 里会自动播放，文件比 GIF 小得多 -->
 <div align="center">
-  <img src="./assets/banner.jpg" alt="Neon Cyberpunk Banner" width="100%" />
+  <img src="./assets/banner.svg" alt="Neon Cyberpunk Banner" width="100%" />
 </div>
 
 <!-- ╔══════════════════════ ② ANIMATED TITLE ══════════════════════╗ -->
@@ -57,21 +59,34 @@
 <!-- ╔══════════════════════ ④ ABOUT ME ══════════════════════╗ -->
 <h2 align="center">🧑‍💻 <code>whoami</code></h2>
 
+<table>
+<tr>
+<td width="300" align="center" valign="middle">
+  <img src="./assets/avatar.svg" width="280" alt="Mingjuan Zheng — neon avatar" />
+</td>
+<td valign="middle">
+
 ```yaml
-┌──(郑明娟㉿github)-[~]
+┌──(mingjuan㉿github)-[~]
 └─$ cat profile.yml
 
-name       : 郑明娟 · Mingjuan Zheng
-role       : 大二学生 / Sophomore
-location   : 深圳 · 龙岗 / Shenzhen, China
-focus      : 智能体 (AI Agent) 开发
-learning   : 大模型应用 · Prompt 工程 · Python
-hobbies    : 探索新工具 · 折腾 AI · 记录生活
-motto      : "Talk is cheap. Show me the code. — Linus Torvalds"
+name      : Mingjuan Zheng
+handle    : @wind-04300
+role      : Sophomore · AI Agent Engineering
+location  : Shenzhen, China  (UTC+8)
+focus     : Autonomous Agents · LLM Applications
+toolchain : Python · TypeScript · Node · Git · Docker
+learning  : RAG pipelines · Multi-agent orchestration
+hobbies   : Night-owl coding · Cyberpunk & sci-fi · Street photography · Bubble tea
+motto     : "Talk is cheap. Show me the code. — Linus Torvalds"
 
-status     : 🟢 Online & Building
-coffee     : ████████████████████ 100%  ☕
+status    : 🟢 Online & building something weird
+fuel      : ████████████████████ 100%  ☕
 ```
+
+</td>
+</tr>
+</table>
 
 <!-- ╔══════════════════════ ⑤ TECH ARSENAL ══════════════════════╗ -->
 <h2 align="center">⚔️ Tech Arsenal</h2>
@@ -163,7 +178,7 @@ coffee     : ████████████████████ 100%  
 
   <br/><br/>
 
-  <i>💬 有话想说？欢迎开 Issue 或给我发邮件交流！</i>
+  <i>💬 Got something to say? Open an issue or drop me an email — always up for a good conversation.</i>
 
 </div>
 
