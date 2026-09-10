@@ -1,7 +1,6 @@
 <!-- ══════════════════════════════════════════════════════════════════════════
-     ✦  wind-04300 · GitHub Profile  ✦
+     ✦  郑明娟 (wind-04300) · GitHub Profile  ✦
      Theme : Neon Cyberpunk
-     Note  : 所有需要个性化修改的地方都已用 【】 标注，替换成你自己的即可
      ══════════════════════════════════════════════════════════════════════════ -->
 
 <!-- ╔══════════════════════ ① HERO BANNER ══════════════════════╗ -->
@@ -12,11 +11,11 @@
 <!-- ╔══════════════════════ ② ANIMATED TITLE ══════════════════════╗ -->
 <div align="center">
 
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=42&duration=2800&pause=900&color=00F7FF&center=true&vCenter=true&multiline=true&width=800&height=150&lines=Hi%2C+I'm+wind-04300+%F0%9F%91%8B;Code+%7C+Create+%7C+Conquer+%E2%9A%A1;Welcome+to+my+digital+universe+%F0%9F%8C%8C" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=42&duration=2800&pause=900&color=00F7FF&center=true&vCenter=true&multiline=true&width=800&height=150&lines=Hi%2C+I'm+Mingjuan+Zheng+%F0%9F%91%8B;Code+%7C+Create+%7C+Conquer+%E2%9A%A1;Welcome+to+my+digital+universe+%F0%9F%8C%8C" alt="Typing SVG" />
 
   <br/>
 
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=17&duration=2400&pause=600&color=FF00E5&center=true&vCenter=true&width=820&lines=%E2%96%B8+Full-Stack+Developer+in+the+making;%E2%96%B8+Turning+coffee+into+clean+code+%E2%98%95;%E2%96%B8+Always+learning+%C2%B7+Always+building+%F0%9F%9A%80" alt="Subtitle" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=17&duration=2400&pause=600&color=FF00E5&center=true&vCenter=true&width=820&lines=%E2%96%B8+Sophomore+Student+%F0%9F%8E%93;%E2%96%B8+Exploring+AI+Agents+%26+LLMs+%F0%9F%A4%96;%E2%96%B8+Based+in+Shenzhen+Longgang+%F0%9F%93%8D" alt="Subtitle" />
 
 </div>
 
@@ -45,15 +44,15 @@
 <h2 align="center">🧑‍💻 <code>whoami</code></h2>
 
 ```yaml
-┌──(wind-04300㉿github)-[~]
+┌──(郑明娟㉿github)-[~]
 └─$ cat profile.yml
 
-name       : 【 你的名字 / Nickname 】
-role       : 【 你的身份，如 Student / Full-Stack Developer 】
-location   : 【 你在哪，如 Shenzhen, China 】
-focus      : 【 你正在专注的方向，如 Web Dev & AI 】
-learning   : 【 正在学什么，如 React, Python, Cloud 】
-hobbies    : 【 爱好，如 摄影 / 篮球 / 独立游戏 】
+name       : 郑明娟 · Mingjuan Zheng
+role       : 大二学生 / Sophomore
+location   : 深圳 · 龙岗 / Shenzhen, China
+focus      : 智能体 (AI Agent) 开发
+learning   : 大模型应用 · Prompt 工程 · Python
+hobbies    : 探索新工具 · 折腾 AI · 记录生活
 motto      : "Talk is cheap. Show me the code. — Linus Torvalds"
 
 status     : 🟢 Online & Building
@@ -114,7 +113,7 @@ coffee     : ████████████████████ 100%  
 <h2 align="center">📈 Contribution Timeline</h2>
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=wind-04300&bg_color=0D1117&color=00F7FF&line=FF00E5&point=FFD700&area=true&hide_border=true&custom_title=wind-04300%27s%20Contribution%20Graph" width="100%" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=wind-04300&bg_color=0D1117&color=00F7FF&line=FF00E5&point=FFD700&area=true&hide_border=true&custom_title=Mingjuan%27s%20Contribution%20Graph" width="100%" />
 </div>
 
 <!-- ╔══════════════════════ ⑨ 3D CONTRIBUTION ══════════════════════╗ -->
@@ -147,14 +146,8 @@ coffee     : ████████████████████ 100%  
   <a href="https://github.com/wind-04300">
     <img src="https://img.shields.io/badge/GitHub-0D1117?style=for-the-badge&logo=github&logoColor=00F7FF" alt="GitHub" />
   </a>
-  <a href="mailto:【你的邮箱】">
+  <a href="mailto:zmjaixx@qq.com">
     <img src="https://img.shields.io/badge/Email-0D1117?style=for-the-badge&logo=gmail&logoColor=EA4335" alt="Email" />
-  </a>
-  <a href="【你的博客 / 主页链接】">
-    <img src="https://img.shields.io/badge/Blog-0D1117?style=for-the-badge&logo=hashnode&logoColor=FF00E5" alt="Blog" />
-  </a>
-  <a href="【你的微信 / QQ / 其他】">
-    <img src="https://img.shields.io/badge/WeChat-0D1117?style=for-the-badge&logo=wechat&logoColor=07C160" alt="WeChat" />
   </a>
 
   <br/><br/>
