@@ -21,6 +21,12 @@ on:
 permissions:
   contents: write
 
+# ↓ snake / 3d-contrib / cards 三个工作流都会往 main 提交，共用同一个
+#   concurrency group 串行排队，避免并发 push 互相顶掉（曾导致 push 被拒）。
+concurrency:
+  group: profile-write-main
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -40,12 +46,32 @@ jobs:
 
       - name: Commit & push
         run: |
+          set -e
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/snake
+
+          echo "── 生成结果 ──"
+          ls -la assets/snake || echo "⚠️ assets/snake 不存在（生成步骤可能失败）"
+
+          mkdir -p assets/snake
+          git add -A assets/snake
           if git diff --staged --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "chore(snake): refresh contribution snake"
-            git push
+            exit 0
           fi
+          git commit -m "chore(snake): refresh contribution snake"
+
+          # 远端 main 可能已被其它工作流推进 —— 先 rebase 再重试推送
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "✅ pushed (attempt $i)"
+              exit 0
+            fi
+            echo "⚠️ attempt $i rejected — syncing with remote main…"
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep 5
+          done
+
+          echo "❌ push failed after 5 attempts"
+          exit 1

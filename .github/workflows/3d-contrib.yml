@@ -16,6 +16,11 @@ on:
     paths:
       - ".github/workflows/3d-contrib.yml"
 
+# ↓ 与 snake / cards 共用同一 concurrency group，串行写 main，避免并发 push 冲突
+concurrency:
+  group: profile-write-main
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,8 +40,28 @@ jobs:
 
       - name: Commit & Push
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A .
-          git commit -m "chore: update 3D contribution graph" || echo "No changes to commit"
-          git push
+
+          mkdir -p profile-3d-contrib
+          git add -A profile-3d-contrib
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: update 3D contribution graph"
+
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "✅ pushed (attempt $i)"
+              exit 0
+            fi
+            echo "⚠️ attempt $i rejected — syncing with remote main…"
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep 5
+          done
+
+          echo "❌ push failed after 5 attempts"
+          exit 1
