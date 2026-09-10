@@ -1,0 +1,37 @@
+name: 🧊 Generate 3D Contribution Graph
+
+on:
+  # 每天 UTC 0 点刷新
+  schedule:
+    - cron: "0 0 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+  # 每次推送到 main 分支时也刷新
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Generate 3D contribution
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate 3D contribution SVG
+        uses: yoshi389111/github-profile-3d-contrib@0.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: wind-04300
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A .
+          git commit -m "chore: update 3D contribution graph" || echo "No changes to commit"
+          git push
