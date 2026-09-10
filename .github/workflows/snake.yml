@@ -1,9 +1,15 @@
 name: 🐍 Generate Contribution Snake
 
-# The snake is now committed into `main` under assets/snake/ so the README can
-# reference it with a RELATIVE path. Relative paths are served by GitHub itself,
-# which keeps the animation working even where raw.githubusercontent.com is
-# unreliable.
+# 贪吃蛇 SVG 由 Platane/snk 生成后提交进 main 的 assets/snake/，
+# README 用相对路径 ./assets/snake/xxx.svg 引用 —— 相对路径由 GitHub 自己伺服，
+# 不经过任何第三方域名，所以在任何网络环境下都能正常显示。
+#
+# 经验教训（重要，别改回去）：
+#   1) 输出必须写成 dist/github-contribution-grid-snake*.svg —— 这是 snk 验证过的写法。
+#      之前直接写 assets/snake/snake.svg，snk 什么都不产出，随后 git add 撞上空目录
+#      直接 "pathspec did not match any files" 秒退，看起来像"推送失败"。
+#   2) 不要加共享的 concurrency group：三个工作流常被同一次 push 同时触发，
+#      GitHub 会取消掉组里"较早排队"的那个（snake 就这样被 cancelled 过）。
 
 on:
   # 每 12 小时自动刷新一次
@@ -21,10 +27,6 @@ on:
 permissions:
   contents: write
 
-# ⚠️ 刻意不使用 concurrency group：三个工作流常被同一次 push 同时触发，
-#    共享 group 时 GitHub 会取消掉「较早排队」的那个（snake 就这样被 cancelled 过）。
-#    并发写 main 的冲突，改由下面 Commit 步骤里的 rebase + 重试兜住。
-
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -39,37 +41,68 @@ jobs:
         with:
           github_user_name: wind-04300
           outputs: |
-            assets/snake/snake-dark.svg?palette=github-dark&color_snake=#00F7FF&color_dots=#161b22,#0e4429,#006d32,#26a641,#39d353
-            assets/snake/snake.svg
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=#00F7FF&color_dots=#161b22,#0e4429,#006d32,#26a641,#39d353
+
+      - name: Copy into assets/snake
+        run: |
+          mkdir -p assets/snake
+          cp -f dist/github-contribution-grid-snake.svg      assets/snake/snake.svg      || true
+          cp -f dist/github-contribution-grid-snake-dark.svg assets/snake/snake-dark.svg || true
+          echo "── dist ──"; ls -la dist || true
+          echo "── assets/snake ──"; ls -la assets/snake || true
 
       - name: Commit & push
         run: |
-          set -e
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          set +e
+          LOG=$(mktemp)
 
-          echo "── 生成结果 ──"
-          ls -la assets/snake || echo "⚠️ assets/snake 不存在（生成步骤可能失败）"
+          (
+            set -e
+            echo "### uid / pwd"; id; pwd
+            echo "### ls -la"; ls -la
+            echo "### find *.svg"; find . -path ./.git -prune -o -type f -name '*.svg' -print 2>&1 | head -40
+            echo "### git status"; git status --short 2>&1 | head -40
 
-          mkdir -p assets/snake
-          git add -A assets/snake
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          git commit -m "chore(snake): refresh contribution snake"
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 远端 main 可能已被其它工作流推进 —— 先 rebase 再重试推送
-          for i in 1 2 3 4 5; do
-            if git push origin HEAD:main; then
-              echo "✅ pushed (attempt $i)"
-              exit 0
+            if [ -z "$(ls -A assets/snake 2>/dev/null)" ]; then
+              echo "### assets/snake 为空：snk 没有产出文件"
+              exit 8
             fi
-            echo "⚠️ attempt $i rejected — syncing with remote main…"
-            git fetch origin main
-            git rebase origin/main || { git rebase --abort; exit 1; }
-            sleep 5
-          done
 
-          echo "❌ push failed after 5 attempts"
-          exit 1
+            git add -A assets/snake
+            if git diff --staged --quiet; then
+              echo "### 与仓库现有内容一致，无需提交"
+              exit 9
+            fi
+
+            git commit -m "chore(snake): refresh contribution snake"
+
+            # 远端 main 可能已被其它工作流推进 —— 先 rebase 再重试
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then
+                echo "### pushed (attempt $i)"
+                exit 0
+              fi
+              echo "### attempt $i rejected, syncing with remote main…"
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              sleep 5
+            done
+            exit 1
+          ) > "$LOG" 2>&1
+          RC=$?
+
+          cat "$LOG"
+
+          case "$RC" in
+            0) echo "✅ snake 已更新"; exit 0 ;;
+            9) echo "ℹ️ snake 无变化，跳过提交"; exit 0 ;;
+            8) echo "❌ snk 未产出文件（见上方日志）"; exit 1 ;;
+            *)
+              MSG=$(sed -e 's/%/%25/g' -e 's/\r//g' "$LOG" | tr '\n' '~' | cut -c1-1400)
+              echo "::error::SNAKEDIAG rc=$RC :: $MSG"
+              exit 1 ;;
+          esac
