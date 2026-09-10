@@ -1,0 +1,87 @@
+name: 📅 Daily Activity Heartbeat
+
+# 为什么需要这个工作流？
+# ---------------------------------------------------------------
+# 另外三个工作流（3d-contrib / cards / snake）只有在「生成的内容真的有变化」
+# 时才会提交。当统计数字、贡献数据没变时，它们会直接 "No changes to commit"，
+# 于是当天在贡献图上就是空白格 —— 贪吃蛇因此经常吃不到东西。
+#
+# 这个心跳工作流每天强制产生一次真实变更：写入一份当天日期的 activity 日志。
+# 配合 PAT 检出 + 账户本人的 noreply 邮箱，这次提交会被 GitHub 计入贡献图，
+# 保证「每天至少一个格子」，蛇才会稳定地越吃越长。
+#
+# ⚠️ 关于邮箱：本账户注册于 2017-07-18 之后（ID=327238265），
+#    noreply 邮箱必须是 <ID>+<username>@users.noreply.github.com 这种带 ID 前缀的格式，
+#    旧格式 <username>@users.noreply.github.com 不会被计入贡献。
+
+on:
+  # 每天 UTC 22:30（北京时间 06:30）心跳一次，让新格子在睡醒前就位
+  schedule:
+    - cron: "30 22 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 说明：沿用其它工作流的做法 —— 不使用 concurrency group，
+# 避免和同一次 push 触发的其它工作流互相取消。
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    name: Write daily heartbeat log
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Write today's activity log
+        run: |
+          set -e
+          # 用北京时间取日期：GitHub 的 runner 是 UTC，凌晨跑会差一天
+          DAY=$(TZ=Asia/Shanghai date +%F)
+          mkdir -p activity
+          if [ -f "activity/${DAY}.md" ]; then
+            echo "activity/${DAY}.md 已存在，追加一条心跳标记"
+            printf '\n- heartbeat %s\n' "$(TZ=Asia/Shanghai date +%H:%M)" >> "activity/${DAY}.md"
+          else
+            {
+              printf '# %s\n\n' "$DAY"
+              printf 'Daily heartbeat — keeps the contribution graph alive.\n\n'
+              printf '- heartbeat %s\n' "$(TZ=Asia/Shanghai date +%H:%M)"
+            } > "activity/${DAY}.md"
+          fi
+          echo "── activity/ ──"
+          ls -1 activity | tail -5
+
+      - name: Commit & push
+        run: |
+          set -e
+          # 提交作者设成账户本人 + 带 ID 的 noreply 邮箱，
+          # 配合上面的 PAT，这些自动提交才会被计入贡献图。
+          git config user.name  "wind-04300"
+          git config user.email "327238265+wind-04300@users.noreply.github.com"
+
+          git add -A activity
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(activity): daily heartbeat"
+
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "✅ pushed (attempt $i)"
+              exit 0
+            fi
+            echo "⚠️ attempt $i rejected — syncing with remote main…"
+            git fetch origin main
+            git rebase --committer-date-is-author-date origin/main || { git rebase --abort; exit 1; }
+            sleep 5
+          done
+
+          echo "❌ push failed after 5 attempts"
+          exit 1
