@@ -47,7 +47,10 @@ jobs:
           # 提交作者设成你本人（邮箱必须是 GitHub 账户认可的 noreply 邮箱），
           # 配合上面的 PAT，这些自动提交才会被计入贡献图。
           git config user.name  "wind-04300"
-          git config user.email "wind-04300@users.noreply.github.com"
+          # noreply 邮箱必须带账户 ID 前缀（本账户 ID=327238265）。
+          # 2017-07-18 之后注册的账户只认可 <ID>+<username>@users.noreply.github.com，
+          # 旧格式 <username>@users.noreply.github.com 不会被计入贡献图。
+          git config user.email "327238265+wind-04300@users.noreply.github.com"
 
           mkdir -p profile-3d-contrib
           git add -A profile-3d-contrib
