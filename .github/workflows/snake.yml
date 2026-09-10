@@ -21,11 +21,9 @@ on:
 permissions:
   contents: write
 
-# ↓ snake / 3d-contrib / cards 三个工作流都会往 main 提交，共用同一个
-#   concurrency group 串行排队，避免并发 push 互相顶掉（曾导致 push 被拒）。
-concurrency:
-  group: profile-write-main
-  cancel-in-progress: false
+# ⚠️ 刻意不使用 concurrency group：三个工作流常被同一次 push 同时触发，
+#    共享 group 时 GitHub 会取消掉「较早排队」的那个（snake 就这样被 cancelled 过）。
+#    并发写 main 的冲突，改由下面 Commit 步骤里的 rebase + 重试兜住。
 
 jobs:
   generate:

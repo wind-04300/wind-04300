@@ -21,10 +21,8 @@ on:
 permissions:
   contents: write
 
-# ↓ 与 snake / 3d-contrib 共用同一 concurrency group，串行写 main，避免并发 push 冲突
-concurrency:
-  group: profile-write-main
-  cancel-in-progress: false
+# 说明：刻意不使用 concurrency group —— 三个工作流常由同一次 push 同时触发，
+# 共享 group 会让较早排队者被 GitHub 取消。并发写 main 由 rebase + 重试兜住。
 
 jobs:
   cards:
