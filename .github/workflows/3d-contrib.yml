@@ -29,6 +29,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # 用 PAT 检出，push 出去的提交作者才是「你本人」→ 会被计入贡献图。
+          # GITHUB_TOKEN 的提交会被 GitHub 标记为 bot，不算贡献（贪吃蛇因此没得吃）。
+          # 未配置 GH_PAT 时自动回退到 GITHUB_TOKEN，功能不受影响。
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
       - name: Generate 3D contribution SVG
         uses: yoshi389111/github-profile-3d-contrib@0.7.1
@@ -39,8 +44,10 @@ jobs:
       - name: Commit & Push
         run: |
           set -e
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 提交作者设成你本人（邮箱必须是 GitHub 账户认可的 noreply 邮箱），
+          # 配合上面的 PAT，这些自动提交才会被计入贡献图。
+          git config user.name  "wind-04300"
+          git config user.email "wind-04300@users.noreply.github.com"
 
           mkdir -p profile-3d-contrib
           git add -A profile-3d-contrib
