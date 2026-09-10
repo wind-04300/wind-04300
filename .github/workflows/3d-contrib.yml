@@ -1,15 +1,20 @@
 name: 🧊 Generate 3D Contribution Graph
 
+# Already self-hosted: the SVG lands in `main` under profile-3d-contrib/, so the
+# README references it with a relative path.
+
 on:
   # 每天 UTC 0 点刷新
   schedule:
     - cron: "0 0 * * *"
   # 允许在 Actions 页面手动触发
   workflow_dispatch:
-  # 每次推送到 main 分支时也刷新
+  # 工作流本身有改动时刷新
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/3d-contrib.yml"
 
 jobs:
   build:

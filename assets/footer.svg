@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="150" viewBox="0 0 880 150" role="img" aria-label="Thanks for stopping by">
+  <defs>
+    <linearGradient id="neonLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF00E5"/>
+      <stop offset="50%" stop-color="#7B2FFF"/>
+      <stop offset="100%" stop-color="#00F7FF"/>
+    </linearGradient>
+    <linearGradient id="wA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF00E5" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#7B2FFF" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="wB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7B2FFF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#00F7FF" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="wC" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00F7FF" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="#FF00E5" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="fglow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <style>
+    text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+    .l1{animation:bob 7s ease-in-out infinite;}
+    .l2{animation:bob 9.5s ease-in-out infinite reverse;}
+    .l3{animation:bob 12s ease-in-out infinite;}
+    .sh{animation:shift 9s linear infinite;}
+    .tt{animation:twinkle 3.4s ease-in-out infinite;}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes shift{to{stroke-dashoffset:-300;}}
+    @keyframes twinkle{0%,100%{opacity:.65}50%{opacity:1}}
+  </style>
+  <rect width="880" height="150" fill="#0D1117"/>
+  <path class="l1" fill="url(#wA)" d="M0,96 C110,64 200,124 320,98 C440,72 520,128 640,102 C760,76 820,118 880,94 L880,150 L0,150 Z"/>
+  <path class="l2" fill="url(#wB)" d="M0,108 C130,84 220,132 340,110 C460,88 540,134 660,112 C780,90 830,124 880,106 L880,150 L0,150 Z"/>
+  <path class="l3" fill="url(#wC)" d="M0,122 C140,104 240,142 360,124 C480,106 560,144 680,126 C800,108 840,134 880,120 L880,150 L0,150 Z"/>
+  <path fill="none" stroke="url(#neonLine)" stroke-width="2" stroke-dasharray="18 12" filter="url(#fglow)" class="sh" d="M0,96 C110,64 200,124 320,98 C440,72 520,128 640,102 C760,76 820,118 880,94"/>
+  <text x="440" y="52" text-anchor="middle" fill="#C9D1D9" font-size="21" font-weight="700" letter-spacing="3" class="tt">THANKS FOR STOPPING BY</text>
+  <text x="440" y="76" text-anchor="middle" fill="#00F7FF" font-size="12" letter-spacing="5">@wind-04300</text>
+</svg>

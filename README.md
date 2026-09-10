@@ -1,6 +1,20 @@
 <!-- ══════════════════════════════════════════════════════════════════════════
      ✦  郑明娟 (wind-04300) · GitHub Profile  ✦
      Theme : Neon Cyberpunk
+     ══════════════════════════════════════════════════════════════════════════
+
+     ⚠️  IMPORTANT — 为什么所有图片都是 ./ 相对路径？
+
+     github-readme-stats / github-profile-trophy / github-readme-activity-graph /
+     capsule-render 全部托管在 *.vercel.app 上，这些域名在国内被 DNS 污染
+     （会解析到 69.63.176.143、108.160.170.52 之类的假 IP），图片必然加载失败。
+
+     所以本页所有图片都改为「自托管」：由 GitHub Actions 生成后提交进本仓库，
+     再用相对路径引用。相对路径由 GitHub 自己伺服，不经过任何第三方域名，
+     在任何网络环境下都能正常显示。
+
+     卡片生成脚本 : .github/scripts/gen_cards.py
+     自动刷新     : .github/workflows/cards.yml  (每天 11:00 北京时间)
      ══════════════════════════════════════════════════════════════════════════ -->
 
 <!-- ╔══════════════════════ ① HERO BANNER ══════════════════════╗ -->
@@ -87,40 +101,37 @@ coffee     : ████████████████████ 100%  
 
 <div align="center">
 
-<table border="0">
-<tr>
-  <td width="50%" align="center">
-    <img src="https://github-readme-stats.vercel.app/api?username=wind-04300&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&theme=synthwave&bg_color=0D1117&title_color=00F7FF&icon_color=FF00E5&text_color=c9d1d9&rank_icon=github" width="100%" />
-  </td>
-  <td width="50%" align="center">
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wind-04300&layout=compact&langs_count=8&hide_border=true&theme=synthwave&bg_color=0D1117&title_color=00F7FF&text_color=c9d1d9" width="100%" />
-  </td>
-</tr>
-</table>
+  <img src="./assets/cards/stats.svg" alt="GitHub Stats" />
 
-<img src="https://streak-stats.demolab.com?user=wind-04300&theme=synthwave&hide_border=true&background=0D1117&stroke=00F7FF&ring=FF00E5&fire=FFD700&currStreakLabel=00F7FF" width="70%" />
+  <br/><br/>
+
+  <img src="./assets/cards/langs.svg" alt="Top Languages" />
+
+  <br/><br/>
+
+  <img src="https://streak-stats.demolab.com?user=wind-04300&theme=synthwave&hide_border=true&background=0D1117&stroke=00F7FF&ring=FF00E5&fire=FFD700&currStreakLabel=00F7FF" width="70%" />
 
 </div>
 
-<!-- ╔══════════════════════ ⑦ TROPHIES ══════════════════════╗ -->
+<!-- ╔══════════════════════ ⑦ ACHIEVEMENTS ══════════════════════╗ -->
 <h2 align="center">🏆 Trophy Cabinet</h2>
 
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=wind-04300&theme=radical&no-frame=true&no-bg=true&column=7&margin-w=8&margin-h=8" width="100%" />
+  <img src="./assets/cards/achievements.svg" alt="Achievements" />
 </div>
 
 <!-- ╔══════════════════════ ⑧ ACTIVITY GRAPH ══════════════════════╗ -->
 <h2 align="center">📈 Contribution Timeline</h2>
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=wind-04300&bg_color=0D1117&color=00F7FF&line=FF00E5&point=FFD700&area=true&hide_border=true&custom_title=Mingjuan%27s%20Contribution%20Graph" width="100%" />
+  <img src="./assets/cards/activity.svg" alt="Contribution Timeline" width="100%" />
 </div>
 
 <!-- ╔══════════════════════ ⑨ 3D CONTRIBUTION ══════════════════════╗ -->
 <h2 align="center">🧊 3D Contribution Skyline</h2>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/wind-04300/wind-04300/main/profile-3d-contrib/profile-night-rainbow.svg" width="100%" alt="3D Contribution" />
+  <img src="./profile-3d-contrib/profile-night-rainbow.svg" width="100%" alt="3D Contribution" />
 </div>
 
 <!-- ╔══════════════════════ ⑩ SNAKE ══════════════════════╗ -->
@@ -128,9 +139,9 @@ coffee     : ████████████████████ 100%  
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wind-04300/wind-04300/output/github-contribution-grid-snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/wind-04300/wind-04300/output/github-contribution-grid-snake.svg" />
-    <img alt="Snake Eating Contributions" src="https://raw.githubusercontent.com/wind-04300/wind-04300/output/github-contribution-grid-snake-dark.svg" width="100%" />
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/snake/snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./assets/snake/snake.svg" />
+    <img alt="Snake Eating Contributions" src="./assets/snake/snake-dark.svg" width="100%" />
   </picture>
 </div>
 
@@ -159,9 +170,17 @@ coffee     : ████████████████████ 100%  
 <br/>
 
 <!-- ╔══════════════════════ ⑫ FUN FACT / QUOTE ══════════════════════╗ -->
+<h2 align="center">💭 Dev Quote</h2>
+
 <div align="center">
 
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Dev Quote" />
+> **"Talk is cheap. Show me the code."**
+>
+> — *Linus Torvalds*
+
+<br/>
+
+<sub>⚡ <b>Code · Create · Conquer</b> ⚡</sub>
 
 </div>
 
@@ -169,5 +188,5 @@ coffee     : ████████████████████ 100%  
 
 <!-- ╔══════════════════════ ⑬ FOOTER ══════════════════════╗ -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=140&section=footer&color=0:FF00E5,50:7B2FFF,100:00F7FF&text=Thanks%20for%20stopping%20by!&fontSize=28&fontColor=ffffff&animation=twinkling" width="100%" />
+  <img src="./assets/footer.svg" width="100%" alt="Thanks for stopping by" />
 </div>

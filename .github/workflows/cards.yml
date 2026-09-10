@@ -1,0 +1,54 @@
+name: 🎴 Refresh Profile Cards
+
+# Renders assets/cards/*.svg from live GitHub data and commits them back into
+# `main`. Everything is self-hosted, so the README only needs relative paths and
+# never depends on third-party domains (Vercel etc.) that are unreachable in CN.
+
+on:
+  # 每天 UTC 03:00（北京时间 11:00）刷新一次
+  schedule:
+    - cron: "0 3 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+  # 脚本或工作流本身有改动时刷新
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/scripts/gen_cards.py"
+      - ".github/workflows/cards.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    name: Render SVG cards
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Render cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USER: wind-04300
+        run: python .github/scripts/gen_cards.py assets/cards
+
+      - name: Commit & push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/cards
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(cards): refresh profile cards"
+            git push
+          fi
