@@ -70,7 +70,7 @@
 ┌──(mingjuan㉿github)-[~]
 └─$ cat profile.yml
 
-name      : Mingjuan Zheng
+name      : Mingjuan Zheng (郑明娟)
 handle    : @wind-04300
 role      : Sophomore · AI Agent Engineering
 location  : Shenzhen, China  (UTC+8)
@@ -87,6 +87,47 @@ fuel      : ████████████████████ 100%  �
 </td>
 </tr>
 </table>
+
+<!-- ╔══════════════════════ ④·5 FEATURED ══════════════════════╗ -->
+<h2 align="center">🌟 Featured Project</h2>
+
+<div align="center">
+
+<a href="https://github.com/wind-04300/knowledge-map-portfolio">
+  <img src="https://img.shields.io/badge/%F0%9F%93%9A_KNOWLEDGE_MAP_PORTFOLIO-1386_FILES_%E2%86%92_132_NODES-00F7FF?style=for-the-badge&labelColor=0D1117" alt="Knowledge Map Portfolio" />
+</a>
+
+<br/><br/>
+
+<table>
+<tr><td>
+
+**个人知识地图体系 · Obsidian + AI Agent**
+
+用 Obsidian 把 1386 份散落文件索引成 **132 个节点 / 7 大分类** 的四层知识地图，
+每个知识点回链源文件，AI 智能体开工前先查地图继承上下文 —— 越用越聪明的「外置大脑」。
+
+| 模块 | 内容 |
+|---|---|
+| 🗺️ `methodology/` | 四层结构方法论 + 维护纪律 + 云备份 |
+| 🧩 `ai-skill/` | 可安装的 AI Skill + 万能提示词 |
+| 📦 `demo-vault/` | 示例库，下载即 1:1 体验同款画面 |
+| 🚀 `tutorial/` | 保姆级搭建教程（30 分钟复刻）|
+| 💼 `projects/` | 真实项目成果卡（硬件 / App / 自动化）|
+
+**[👉 打开仓库](https://github.com/wind-04300/knowledge-map-portfolio)** ｜
+**[📖 直接看教程](https://github.com/wind-04300/knowledge-map-portfolio/blob/main/tutorial/%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B.md)**
+
+<sub>tags: `obsidian` `pkm` `second-brain` `knowledge-graph` `ai-agent`</sub>
+
+</td></tr>
+</table>
+
+</div>
+
+<br/>
+
+---
 
 <!-- ╔══════════════════════ ⑤ TECH ARSENAL ══════════════════════╗ -->
 <h2 align="center">⚔️ Tech Arsenal</h2>
